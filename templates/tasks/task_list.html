@@ -1,4 +1,87 @@
 {% extends "base.html" %}
 {% block content %}
+  <div class="row">
+
+    {% for task in task_list %}
+      <div class="col-lg-6">
+        <div class="card shadow mb-4">
+          <!-- Card Header - Accordion -->
+          <a href="#card{{ task.id }}" class="d-block card-header py-3" data-toggle="collapse"
+             role="button" aria-expanded="false" aria-controls="card{{ task.id }}">
+            <h6 class="m-0 font-weight-bold text-primary">{{ task.name }}
+              <span class="badge badge-warning">{{ task.get_priority_display }}</span>
+              {% if task.is_completed %}
+                <span class="badge badge-success">Done</span>
+              {% else %}
+                <span class="badge badge-info">In progress</span>
+              {% endif %}
+            </h6>
+          </a>
+          <!-- Card Content - Collapse -->
+          <div class="collapse" id="card{{ task.id }}">
+            <div class="card-body">
+              {% if task.deadline > current_time.date and not task.is_completed %}
+                <span class="badge badge-success">Deadline: {{ task.deadline }}</span>
+              {% else %}
+                <span class="badge badge-danger">Deadline: {{ task.deadline }}</span>
+              {% endif %}
+              <div class="d-inline float-right">
+                <a href="#" class="btn btn-info btn-circle btn-sm">
+                <i class="fas fa-info-circle"></i>
+              </a>
+              <a href="#" class="btn btn-danger btn-circle btn-sm">
+                <i class="fas fa-trash"></i>
+              </a>
+              </div>
+              <hr>
+              {{ task.description }}
+
+
+              {#              <div class="dropdown no-arrow">#}
+              {#                <button class="btn btn-secondary dropdown-toggle" type="button"#}
+              {#                        id="dropdownMenuButton{{ task.id }}" data-toggle="dropdown" aria-haspopup="true"#}
+              {#                        aria-expanded="false">#}
+              {#                  Options#}
+              {#                </button>#}
+              {#                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ task.id }}">#}
+              {#                  <a class="dropdown-item" href="#">Action</a>#}
+              {#                  <a class="dropdown-item" href="#">Another action</a>#}
+              {#                  <a class="dropdown-item" href="#">Something else here</a>#}
+              {#                </div>#}
+              {#              </div>#}
+            </div>
+          </div>
+        </div>
+        {#    <div class="card shadow mb-4">#}
+        {#      <!-- Card Header - Dropdown -->#}
+        {#      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">#}
+        {#        <h6 class="m-0 font-weight-bold text-primary">{{ task.name }}</h6>#}
+        {#        <span class="ml-auto mr-1">{{ task.deadline }}</span>#}
+        {#        <div class="dropdown no-arrow">#}
+        {#          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"#}
+        {#             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+        {#            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>#}
+        {#          </a>#}
+        {#          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"#}
+        {#               aria-labelledby="dropdownMenuLink">#}
+        {#            <div class="dropdown-header">Dropdown Header:</div>#}
+        {#            <a class="dropdown-item" href="#">Action</a>#}
+        {#            <a class="dropdown-item" href="#">Another action</a>#}
+        {#            <div class="dropdown-divider"></div>#}
+        {#            <a class="dropdown-item" href="#">Something else here</a>#}
+        {#          </div>#}
+        {#        </div>#}
+        {#      </div>#}
+        {#      <!-- Card Body -->#}
+        {#      <div class="card-body">#}
+        {#        {{ task.description }}#}
+        {#      </div>#}
+        {#    <div class="card-footer">#}
+        {#      Some text in footer#}
+        {#    </div>#}
+      </div>
+
+    {% endfor %}
+  </div>
 
 {% endblock %}
