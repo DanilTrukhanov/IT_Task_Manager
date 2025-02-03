@@ -19,5 +19,9 @@ class TaskListView(generic.ListView):
         return context
 
 
+class TaskDetailView(generic.DetailView):
+    model = Task
+
+
 class WorkerListView(generic.ListView):
     model = Worker
