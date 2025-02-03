@@ -1,7 +1,10 @@
-from django.urls import path, include
+from django.urls import path
+
+from tasks.views import WorkerListView
+
 
 urlpatterns = [
-    #path("", workers, name="worker-list"),
+    path("workers/", WorkerListView.as_view(), name="worker-list"),
 ]
 
 app_name = "workers"
