@@ -26,3 +26,6 @@ class Task(models.Model):
     priority = models.IntegerField(choices=PriorityChoice, default=PriorityChoice.MEDIUM)
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE, related_name="tasks")
     assignees = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="tasks")
+
+    class Meta:
+        ordering = ["priority", "deadline"]
