@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import generic
 
@@ -21,3 +22,8 @@ class TaskListView(generic.ListView):
 
 class TaskDetailView(generic.DetailView):
     model = Task
+
+
+class TaskCreateView(generic.CreateView):
+    model = Task
+    success_url = reverse_lazy("tasks:task-list")
