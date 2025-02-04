@@ -37,3 +37,9 @@ class TaskUpdateView(generic.UpdateView):
     def get_success_url(self):
         pk = self.kwargs.get("pk")
         return reverse_lazy("tasks:task-detail", args=[pk])
+
+
+class TaskDeleteView(generic.DeleteView):
+    model = Task
+    success_url = reverse_lazy("tasks:task-list")
+

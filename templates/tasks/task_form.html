@@ -12,11 +12,11 @@
             <form method="post" action="" novalidate>
               {% csrf_token %}
               {{ form|crispy }}
-              <input type="submit" value="{{ object|yesno:"Update,Create" }}" class="btn btn-primary">
+              <input type="submit" value="{{ object|yesno:"Update,Create" }}" class="btn btn-primary float-right">
               {% if object %}
-                <a href="{% url "tasks:task-detail" object.id %}" class="btn btn-secondary float-right">Cancel</a>
+                <a href="{% url "tasks:task-detail" object.id %}" class="btn btn-secondary">Cancel</a>
                 {% else %}
-                <a href="{% url "tasks:task-list" %}" class="btn btn-secondary float-right">Cancel</a>
+                <a href="{% url "tasks:task-list" %}" class="btn btn-secondary">Cancel</a>
               {% endif %}
             </form>
           </div>
