@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "tasks",
     "users",
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -128,3 +130,5 @@ STATICFILES_DIRS = [BASE_DIR / "static",]
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.Worker"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
