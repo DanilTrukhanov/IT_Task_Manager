@@ -3,8 +3,8 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import generic
 
+from tasks.forms import TaskCreationForm
 from tasks.models import Task
-from users.models import Worker
 
 
 def index(request):
@@ -26,5 +26,5 @@ class TaskDetailView(generic.DetailView):
 
 class TaskCreateView(generic.CreateView):
     model = Task
-    fields = "__all__"
+    form_class = TaskCreationForm
     success_url = reverse_lazy("tasks:task-list")

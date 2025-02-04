@@ -1,7 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-  <form method="post" action="" novalidate>
-    {% csrf_token %}
-    {{ form.as_p }}
-  </form>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Create task</h6>
+          </div>
+          <div class="card-body">
+            <form method="post" action="" novalidate>
+              {% csrf_token %}
+              {{ form.as_p }}
+              <input type="submit" value="Create" class="btn btn-primary float-right">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
