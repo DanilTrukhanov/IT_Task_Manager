@@ -28,4 +28,4 @@ class Task(models.Model):
     assignees = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="tasks")
 
     class Meta:
-        ordering = ["priority", "deadline"]
+        ordering = ["is_completed", "priority", "deadline"]

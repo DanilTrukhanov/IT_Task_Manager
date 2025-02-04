@@ -81,9 +81,12 @@
       </a>
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Options:</h6>
+          <h6 class="collapse-header">Tasks:</h6>
           <a class="collapse-item" href="{% url "tasks:task-list" %}">All tasks</a>
           <a class="collapse-item" href="{% url "tasks:task-create" %}">Create task</a>
+          <h6 class="collapse-header">Task types:</h6>
+          <a class="collapse-item" href="{% url "tasks:task-type-list" %}">All task types</a>
+          <a class="collapse-item" href="{% url "tasks:task-type-create" %}">Create task type</a>
         </div>
       </div>
     </li>

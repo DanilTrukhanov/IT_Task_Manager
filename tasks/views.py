@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.views import generic
 
 from tasks.forms import TaskCreationForm
-from tasks.models import Task
+from tasks.models import Task, TaskType
 
 
 def index(request):
@@ -13,6 +13,7 @@ def index(request):
 
 class TaskListView(generic.ListView):
     model = Task
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -43,3 +44,27 @@ class TaskDeleteView(generic.DeleteView):
     model = Task
     success_url = reverse_lazy("tasks:task-list")
 
+
+class TaskTypeListView(generic.ListView):
+    model = TaskType
+    template_name = "tasks/task_type_list.html"
+
+
+class TaskTypeCreateView(generic.CreateView):
+    model = TaskType
+    fields = "__all__"
+    template_name = "tasks/task_type_form.html"
+    success_url = reverse_lazy("tasks:task-type-list")
+
+
+class TaskTypeUpdateView(generic.UpdateView):
+    model = TaskType
+    fields = "__all__"
+    template_name = "tasks/task_type_form.html"
+    success_url = reverse_lazy("tasks:task-type-list")
+
+
+class TaskTypeDeleteView(generic.DeleteView):
+    model = TaskType
+    success_url = reverse_lazy("tasks:task-type-list")
+    template_name = None
