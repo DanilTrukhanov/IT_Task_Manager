@@ -33,7 +33,8 @@ class TaskCreationForm(forms.ModelForm):
             attrs={
                 "class": "form-check-input",
             }
-        )
+        ),
+        required=False,
     )
 
     task_type = forms.ModelChoiceField(
