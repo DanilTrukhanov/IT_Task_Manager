@@ -8,14 +8,14 @@
         {{ task.name }}
       </h1>
       <div>
-       {% if task.is_completed %}
-         <a href="{% url "tasks:task-change-status" task.id %}"
-           class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
-          <i class="fas fa-arrow-circle-left fa-sm text-white-50 mr-1"></i>Undo</a>
-         {% else %}
+        {% if task.is_completed %}
           <a href="{% url "tasks:task-change-status" task.id %}"
-           class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
-          <i class="fas fa-check fa-sm text-white-50 mr-1"></i>Mark as completed</a>
+             class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
+            <i class="fas fa-arrow-circle-left fa-sm text-white-50 mr-1"></i>Undo</a>
+        {% else %}
+          <a href="{% url "tasks:task-change-status" task.id %}"
+             class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+            <i class="fas fa-check fa-sm text-white-50 mr-1"></i>Mark as completed</a>
         {% endif %}
         <a href="{% url "tasks:task-update" task.id %}"
            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
@@ -143,7 +143,7 @@
             <tbody>
             {% for worker in task.assignees.all %}
               <tr>
-              <td>
+                <td>
                   <a href="{% url "workers:worker-detail" worker.id %}" class="btn btn-info btn-circle btn-sm"
                      title="Worker details">
                     <i class="fas fa-user"></i>
@@ -152,7 +152,7 @@
                 <td>
                   {% if user.username == worker.username %}
                     {{ worker.username }}(Me)
-                    {% else %}
+                  {% else %}
                     {{ worker.username }}
                   {% endif %}
                 </td>

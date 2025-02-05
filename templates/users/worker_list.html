@@ -5,10 +5,10 @@
     <div class="input-group">
       {% if user_to_search %}
         <input type="text" class="form-control bg-light border-0 small" value="{{ user_to_search }}"
-             aria-label="Search" aria-describedby="basic-addon2" name="name">
-        {% else %}
+               aria-label="Search" aria-describedby="basic-addon2" name="name">
+      {% else %}
         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for a worker..."
-             aria-label="Search" aria-describedby="basic-addon2" name="name">
+               aria-label="Search" aria-describedby="basic-addon2" name="name">
       {% endif %}
       <div class="input-group-append">
         <button class="btn btn-primary" type="submit">
@@ -68,7 +68,7 @@
                 <td>
                   {% if user.username == worker.username %}
                     {{ worker.username }}(Me)
-                    {% else %}
+                  {% else %}
                     {{ worker.username }}
                   {% endif %}
                 </td>
