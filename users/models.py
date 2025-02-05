@@ -14,3 +14,6 @@ class Position(models.Model):
 
 class Worker(AbstractUser):
     position = models.ForeignKey(Position, null=True, on_delete=models.CASCADE, related_name="workers")
+
+    class Meta:
+        ordering = ["username"]

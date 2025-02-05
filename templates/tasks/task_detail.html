@@ -149,7 +149,13 @@
                     <i class="fas fa-user"></i>
                   </a>
                 </td>
-                <td>{{ worker.username }}</td>
+                <td>
+                  {% if user.username == worker.username %}
+                    {{ worker.username }}(Me)
+                    {% else %}
+                    {{ worker.username }}
+                  {% endif %}
+                </td>
                 <td>{{ worker.first_name }}</td>
                 <td>{{ worker.last_name }}</td>
                 <td>{{ worker.email }}</td>
