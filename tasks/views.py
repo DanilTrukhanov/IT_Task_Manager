@@ -15,9 +15,9 @@ def index(request):
     return render(request, "base.html")
 
 
-class TaskListView(generic.ListView):
+class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
-    paginate_by = 8
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = Task.objects.all()
@@ -35,17 +35,17 @@ class TaskListView(generic.ListView):
         return context
 
 
-class TaskDetailView(generic.DetailView):
+class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
 
 
-class TaskCreateView(generic.CreateView):
+class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
     form_class = TaskCreationForm
     success_url = reverse_lazy("tasks:task-list")
 
 
-class TaskUpdateView(generic.UpdateView):
+class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
     form_class = TaskCreationForm
 
@@ -84,6 +84,7 @@ class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = None
 
 
+@login_required
 def toggle_status(request: HttpResponse, pk: int) -> HttpRequest:
     task = get_object_or_404(Task, pk=pk)
     task.is_completed = not task.is_completed
