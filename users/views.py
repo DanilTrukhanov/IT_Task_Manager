@@ -12,6 +12,10 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
 
 
+class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Worker
+
+
 class PositionListView(LoginRequiredMixin, generic.ListView):
     model = Position
 
@@ -48,7 +52,3 @@ class CustomLoginView(LoginView):
         else:
             request.session.set_expiry(0)
         return super().post(request, *args, **kwargs)
-
-
-class CustomLogoutView(LogoutView):
-    next_page = "/"

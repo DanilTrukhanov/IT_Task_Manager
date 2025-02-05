@@ -1,65 +1,67 @@
 {% extends "base.html" %}
 {% block content %}
+  <div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800 d-flex justify-content-center">Task types
+      <a href="{% url "tasks:task-type-create" %}" class="ml-2" title="Create task type">
+        <i class="fa fa-plus-circle"></i>
+      </a>
+    </h1>
 
-  <h1 class="h3 mb-4 text-gray-800 d-flex justify-content-center">Task types
-    <a href="{% url "tasks:task-type-create" %}" class="ml-2" title="Create task type">
-      <i class="fa fa-plus-circle"></i>
-    </a>
-  </h1>
-  <div class="row">
-    {% for task in tasktype_list %}
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-bottom-dark shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
-                  Type
+    <div class="row">
+      {% for task in tasktype_list %}
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-bottom-dark shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                    Type
+                  </div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ task.name }}</div>
                 </div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ task.name }}</div>
-              </div>
-              <div class="col-auto">
-                <a href="{% url "tasks:task-type-update" task.id %}" class="btn btn-secondary btn-circle btn-sm"
-                   title="Edit task type">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a href="#" class="btn btn-danger btn-circle btn-sm" data-toggle="modal"
-                   title="Delete task type" data-target="#deleteType{{ task.id }}">
-                  <i class="fas fa-trash"></i>
-                </a>
-                {#                <i class="fas fa-tag fa-2x text-gray-300"></i>#}
+                <div class="col-auto">
+                  <a href="{% url "tasks:task-type-update" task.id %}" class="btn btn-secondary btn-circle btn-sm"
+                     title="Edit task type">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <a href="#" class="btn btn-danger btn-circle btn-sm" data-toggle="modal"
+                     title="Delete task type" data-target="#deleteType{{ task.id }}">
+                    <i class="fas fa-trash"></i>
+                  </a>
+                  {#                <i class="fas fa-tag fa-2x text-gray-300"></i>#}
 
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="modal fade" id="deleteType{{ task.id }}" tabindex="-1" role="dialog" aria-labelledby="DeleteTypeLabel"
-           aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete the type?</h5>
-              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">The task type <strong>{{ task.name }}</strong> will be deleted!</div>
-            <div class="modal-footer">
-              <form method="post" action="{% url "tasks:task-type-delete" task.id %}">
-                {% csrf_token %}
-                <a class="btn btn-secondary" href="{% url "tasks:task-type-list" %}">Cancel</a>
-                <input type="submit" value="Delete" class="btn btn-danger">
-              </form>
+        <div class="modal fade" id="deleteType{{ task.id }}" tabindex="-1" role="dialog"
+             aria-labelledby="DeleteTypeLabel"
+             aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete the type?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">The task type <strong>{{ task.name }}</strong> will be deleted!</div>
+              <div class="modal-footer">
+                <form method="post" action="{% url "tasks:task-type-delete" task.id %}">
+                  {% csrf_token %}
+                  <a class="btn btn-secondary" href="{% url "tasks:task-type-list" %}">Cancel</a>
+                  <input type="submit" value="Delete" class="btn btn-danger">
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-    {% endfor %}
+      {% endfor %}
+    </div>
+
   </div>
-
-
 
 {% endblock %}

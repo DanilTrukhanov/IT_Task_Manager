@@ -14,9 +14,10 @@
       </div>
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table table-bordered" id="dataTable">
+          <table class="table table-bordered text-center" id="dataTable">
             <thead>
             <tr>
+              <th>Profile</th>
               <th>Username</th>
               <th>First Name</th>
               <th>Last Name</th>
@@ -26,6 +27,7 @@
             </thead>
             <tfoot>
             <tr>
+              <th>Profile</th>
               <th>Username</th>
               <th>First Name</th>
               <th>Last Name</th>
@@ -36,7 +38,15 @@
             <tbody>
             {% for worker in worker_list %}
               <tr>
-                <td>{{ worker.username }}</td>
+                <td>
+                  <a href="{% url "workers:worker-detail" worker.id %}" class="btn btn-info btn-circle btn-sm"
+                     title="Worker details">
+                    <i class="fas fa-user"></i>
+                  </a>
+                </td>
+                <td>
+                  {{ worker.username }}
+                </td>
                 <td>{{ worker.first_name }}</td>
                 <td>{{ worker.last_name }}</td>
                 <td>{{ worker.email }}</td>
