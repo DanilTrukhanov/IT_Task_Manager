@@ -14,7 +14,7 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
 
     def get_queryset(self):
-        queryset = get_user_model().objects.all()
+        queryset = get_user_model().objects.select_related("position").all()
 
         user_to_search = self.request.GET.get("name")
         if user_to_search:

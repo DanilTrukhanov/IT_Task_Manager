@@ -20,7 +20,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = Task.objects.all()
+        queryset = Task.objects.prefetch_related("assignees").select_related("task_type").all()
 
         task_to_search = self.request.GET.get("task")
         if task_to_search:
