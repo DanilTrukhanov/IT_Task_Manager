@@ -120,6 +120,18 @@
     }
   },
   {
+    "model": "users.worker",
+    "pk": 11,
+    "fields": {
+      "username": "admin.trukhanov",
+      "email": "admin@admin.com",
+      "password": "pbkdf2_sha256$870000$DnwuETAm9h8cJfOgdrL8E0$+X+4lgL1tbZ9o4f0AoB65SfhPpgaEZ3Ss2ZFCjHxWlo=",
+      "first_name": "Danil",
+      "last_name": "Trukhanov",
+      "position": 2
+    }
+  },
+  {
     "model": "tasks.task",
     "pk": 1,
     "fields": {
