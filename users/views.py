@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
+from users.forms import WorkerCreationForm, WorkerUpdateForm
 from users.models import Worker, Position
 
 
@@ -14,6 +15,21 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Worker
+
+
+class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Worker
+    form_class = WorkerUpdateForm
+
+    def get_success_url(self):
+        pk = self.kwargs.get("pk")
+        return reverse_lazy("workers:worker-detail", args=[pk])
+
+
+class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Worker
+    form_class = WorkerCreationForm
+    success_url = reverse_lazy("workers:worker-list")
 
 
 class PositionListView(LoginRequiredMixin, generic.ListView):
