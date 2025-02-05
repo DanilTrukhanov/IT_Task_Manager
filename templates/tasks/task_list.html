@@ -23,11 +23,7 @@
             </h6>
           </div>
           <div class="card-body">
-            {% if task.deadline > current_time.date and not task.is_completed %}
-              <span class="badge badge-success">Deadline: {{ task.deadline }}</span>
-            {% else %}
-              <span class="badge badge-danger">Deadline: {{ task.deadline }}</span>
-            {% endif %}
+            <span class="badge badge-success">Deadline: {{ task.deadline }}</span>
             <div class="d-inline float-right">
               <a href="{% url "tasks:task-detail" task.id %}" class="btn btn-info btn-circle btn-sm"
                  title="Task details">
@@ -38,40 +34,6 @@
             {{ task.description }}
           </div>
         </div>
-
-        {#        <div class="card shadow mb-3">#}
-        {#          <!-- Card Header - Accordion -->#}
-        {#          <a href="#card{{ task.id }}" class="d-block card-header py-3" data-toggle="collapse"#}
-        {#             role="button" aria-expanded="false" aria-controls="card{{ task.id }}">#}
-        {#            <h6 class="m-0 font-weight-bold text-primary">{{ task.name }}#}
-        {#              <span class="badge badge-warning">{{ task.get_priority_display }}</span>#}
-        {#              {% if task.is_completed %}#}
-        {#                <span class="badge badge-success">Done</span>#}
-        {#              {% else %}#}
-        {#                <span class="badge badge-info">In progress</span>#}
-        {#              {% endif %}#}
-        {#              <span class="badge badge-dark">{{ task.task_type }}</span>#}
-        {#            </h6>#}
-        {#          </a>#}
-        {#          <!-- Card Content - Collapse -->#}
-        {#          <div class="collapse" id="card{{ task.id }}">#}
-        {#            <div class="card-body">#}
-        {#              {% if task.deadline > current_time.date and not task.is_completed %}#}
-        {#                <span class="badge badge-success">Deadline: {{ task.deadline }}</span>#}
-        {#              {% else %}#}
-        {#                <span class="badge badge-danger">Deadline: {{ task.deadline }}</span>#}
-        {#              {% endif %}#}
-        {#              <div class="d-inline float-right">#}
-        {#                <a href="{% url "tasks:task-detail" task.id %}" class="btn btn-info btn-circle btn-sm"#}
-        {#                   title="Task details">#}
-        {#                  <i class="fas fa-info-circle"></i>#}
-        {#                </a>#}
-        {#              </div>#}
-        {#              <hr>#}
-        {#              {{ task.description }}#}
-        {#            </div>#}
-        {#          </div>#}
-        {#        </div>#}
 
       </div>
     {% endfor %}
