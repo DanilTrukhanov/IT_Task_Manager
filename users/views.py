@@ -32,6 +32,11 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("workers:worker-list")
 
 
+class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Worker
+    success_url = reverse_lazy("workers:worker-list")
+
+
 class PositionListView(LoginRequiredMixin, generic.ListView):
     model = Position
 
