@@ -18,7 +18,13 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
 
         user_to_search = self.request.GET.get("name")
         if user_to_search:
-            queryset = queryset.filter(Q(username__icontains=user_to_search) | Q(first_name__icontains=user_to_search) | Q(last_name__icontains=user_to_search))
+            queryset = (
+                queryset.filter(
+                    Q(username__icontains=user_to_search)
+                    | Q(first_name__icontains=user_to_search)
+                    | Q(last_name__icontains=user_to_search)
+                )
+            )
         return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):

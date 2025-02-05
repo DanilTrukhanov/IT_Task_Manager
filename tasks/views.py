@@ -24,7 +24,12 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
         task_to_search = self.request.GET.get("task")
         if task_to_search:
-            queryset = queryset.filter(Q(name__icontains=task_to_search) | Q(description__icontains=task_to_search))
+            queryset = (
+                queryset.filter(
+                    Q(name__icontains=task_to_search)
+                    | Q(description__icontains=task_to_search)
+                )
+            )
         return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):

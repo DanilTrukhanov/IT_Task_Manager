@@ -2,8 +2,6 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from users.models import Worker
-
 
 class TaskType(models.Model):
     name = models.CharField(max_length=100)
@@ -26,9 +24,19 @@ class Task(models.Model):
     description = models.TextField()
     deadline = models.DateField()
     is_completed = models.BooleanField(default=False)
-    priority = models.IntegerField(choices=PriorityChoice, default=PriorityChoice.MEDIUM)
-    task_type = models.ForeignKey(TaskType, null=True, on_delete=models.SET_NULL, related_name="tasks")
-    assignees = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="tasks")
+    priority = models.IntegerField(
+        choices=PriorityChoice,
+        default=PriorityChoice.MEDIUM
+    )
+    task_type = models.ForeignKey(
+        TaskType, null=True,
+        on_delete=models.SET_NULL,
+        related_name="tasks"
+    )
+    assignees = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name="tasks"
+    )
 
     class Meta:
         ordering = ["is_completed", "priority", "deadline"]

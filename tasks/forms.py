@@ -1,11 +1,7 @@
-import datetime
-
 from django import forms
 from django.contrib.auth import get_user_model
-from django.utils import timezone
 
 from tasks.models import Task, TaskType
-from users.models import Worker
 
 
 class TaskCreationForm(forms.ModelForm):
@@ -29,7 +25,7 @@ class TaskCreationForm(forms.ModelForm):
         )
     )
     is_completed = forms.BooleanField(
-        widget = forms.CheckboxInput(
+        widget=forms.CheckboxInput(
             attrs={
                 "class": "form-check-input",
             }
