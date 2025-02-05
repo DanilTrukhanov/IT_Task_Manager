@@ -1,4 +1,23 @@
 {% extends "base.html" %}
+{% block search %}
+  <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+        method="get" action="">
+    <div class="input-group">
+      {% if user_to_search %}
+        <input type="text" class="form-control bg-light border-0 small" value="{{ user_to_search }}"
+             aria-label="Search" aria-describedby="basic-addon2" name="name">
+        {% else %}
+        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for a worker..."
+             aria-label="Search" aria-describedby="basic-addon2" name="name">
+      {% endif %}
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">
+          <i class="fas fa-search fa-sm"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+{% endblock %}
 {% block content %}
   <div class="container-fluid">
 

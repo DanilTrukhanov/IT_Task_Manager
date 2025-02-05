@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.utils import timezone
 from django.views import generic
 
 from tasks.forms import TaskCreationForm
@@ -19,9 +19,19 @@ class TaskListView(generic.ListView):
     model = Task
     paginate_by = 8
 
+    def get_queryset(self):
+        queryset = Task.objects.all()
+
+        task_to_search = self.request.GET.get("task")
+        if task_to_search:
+            queryset = queryset.filter(Q(name__icontains=task_to_search) | Q(description__icontains=task_to_search))
+        return queryset
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["current_time"] = timezone.now()
+        task_to_search = self.request.GET.get("task")
+        if task_to_search:
+            context["task_to_search"] = task_to_search
         return context
 
 

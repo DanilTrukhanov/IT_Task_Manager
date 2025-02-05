@@ -1,6 +1,7 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -11,6 +12,21 @@ from users.models import Worker, Position
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
+
+    def get_queryset(self):
+        queryset = get_user_model().objects.all()
+
+        user_to_search = self.request.GET.get("name")
+        if user_to_search:
+            queryset = queryset.filter(Q(username__icontains=user_to_search) | Q(first_name__icontains=user_to_search) | Q(last_name__icontains=user_to_search))
+        return queryset
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_to_search = self.request.GET.get("name")
+        if user_to_search:
+            context["user_to_search"] = user_to_search
+        return context
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
