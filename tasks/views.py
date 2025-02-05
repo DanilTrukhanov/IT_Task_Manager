@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -7,6 +9,7 @@ from tasks.forms import TaskCreationForm
 from tasks.models import Task, TaskType
 
 
+@login_required
 def index(request):
     return render(request, "base.html")
 
@@ -40,31 +43,31 @@ class TaskUpdateView(generic.UpdateView):
         return reverse_lazy("tasks:task-detail", args=[pk])
 
 
-class TaskDeleteView(generic.DeleteView):
+class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
     success_url = reverse_lazy("tasks:task-list")
 
 
-class TaskTypeListView(generic.ListView):
+class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     model = TaskType
     template_name = "tasks/task_type_list.html"
 
 
-class TaskTypeCreateView(generic.CreateView):
+class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
     model = TaskType
     fields = "__all__"
     template_name = "tasks/task_type_form.html"
     success_url = reverse_lazy("tasks:task-type-list")
 
 
-class TaskTypeUpdateView(generic.UpdateView):
+class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = TaskType
     fields = "__all__"
     template_name = "tasks/task_type_form.html"
     success_url = reverse_lazy("tasks:task-type-list")
 
 
-class TaskTypeDeleteView(generic.DeleteView):
+class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = TaskType
     success_url = reverse_lazy("tasks:task-type-list")
     template_name = None

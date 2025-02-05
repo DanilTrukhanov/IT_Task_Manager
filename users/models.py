@@ -8,6 +8,9 @@ class Position(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    class Meta:
+        ordering = ["name"]
+
 
 class Worker(AbstractUser):
     position = models.ForeignKey(Position, null=True, on_delete=models.CASCADE, related_name="workers")
