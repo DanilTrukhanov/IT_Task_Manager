@@ -1,5 +1,6 @@
 # Disclaimer
 Please note that this project may contain bugs and is not yet fully completed. It is a work in progress :)
+Installation
 
 # IT_Task_Manager
 IT company task manager where you can create tasks with deadline, mark them as complete.
@@ -11,11 +12,40 @@ IT company task manager where you can create tasks with deadline, mark them as c
 - Each worker have a position that is set while creation worker. You can also create new positions.
 
 
+## Project Setup Guide
+1. Clone the Repository
 
-- Use the following command to load prepared data from fixture to test and debug your code:
-  
+
+```
+git clone https://github.com/DanilTrukhanov/IT_Task_Manager.git
+cd IT_Task_Manager
+```
+
+2. Create and Activate a Virtual Environment
+```
+python -m venv venv
+source venv/bin/activate  # On macOS/Linux
+venv\Scripts\activate  # On Windows
+```
+3. Install Dependencies
+```
+pip install -r requirements.txt
+```
+4. Apply Migrations
+```
+python manage.py migrate
+```
+5. Use the following command to load prepared data from fixture:
+
 `python manage.py loaddata django_fixtures.json`
 
-- After loading data from fixture you can use following superuser (or create another one by yourself):
+6. After loading data from fixture you can use following superuser (or create another one by yourself):
+
   - Login: `admin.trukhanov`
   - Password: `Danil$2002$boss.`
+
+7. Run the Development Server
+```
+python manage.py runserver
+```
+Visit http://127.0.0.1:8000/ in your browser.
