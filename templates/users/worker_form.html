@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">{{ object|yesno:"Update,Create" }} worker profile</h6>
+          </div>
+          <div class="card-body">
+            <form method="post" action="" novalidate>
+              {% csrf_token %}
+              {{ form|crispy }}
+              <input type="submit" value="{{ object|yesno:"Update,Create" }}" class="btn btn-primary float-right">
+              {% if object %}
+                <a href="{% url "workers:worker-detail" object.id %}" class="btn btn-secondary">Cancel</a>
+              {% else %}
+                <a href="{% url "workers:worker-list" %}" class="btn btn-secondary">Cancel</a>
+              {% endif %}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

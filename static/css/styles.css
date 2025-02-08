@@ -1,0 +1,13 @@
+.custom-login-image {
+    background: url('/static/img/undraw_login_wqkt.svg') no-repeat center center;
+    background-size: contain;
+    height: 100%;
+    min-height: 400px;
+}
+
+.custom-main-back {
+    background: url('/static/img/undraw_task_x8ko.svg') no-repeat center;
+    background-size: contain;
+    height: 20%;
+    min-height: 400px;
+}

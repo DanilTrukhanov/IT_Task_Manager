@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-900">
+        {{ task.name }}
+      </h1>
+      <div>
+        {% if task.is_completed %}
+          <a href="{% url "tasks:task-change-status" task.id %}"
+             class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
+            <i class="fas fa-arrow-circle-left fa-sm text-white-50 mr-1"></i>Undo</a>
+        {% else %}
+          <a href="{% url "tasks:task-change-status" task.id %}"
+             class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+            <i class="fas fa-check fa-sm text-white-50 mr-1"></i>Mark as completed</a>
+        {% endif %}
+        <a href="{% url "tasks:task-update" task.id %}"
+           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+          <i class="fas fa-edit fa-sm text-white-50 mr-1"></i>Edit task</a>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal"
+           data-target="#deleteTask">
+          <i class="fas fa-trash fa-sm text-white-50 mr-1"></i>Delete task</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Description</h6>
+          </div>
+          <div class="card-body">
+            {{ task.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Content Row -->
+    <div class="row">
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-bottom-{% if task.is_completed %}success{% else %}info{% endif %} shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div
+                    class="text-xs font-weight-bold text-{% if task.is_completed %}success{% else %}info{% endif %} text-uppercase mb-1">
+                  Status
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                  {% if task.is_completed %}
+                    <span>Done</span>
+                  {% else %}
+                    <span>In progress</span>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-laptop fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Earnings (Monthly) Card Example -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-bottom-warning shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                  Priority
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ task.get_priority_display }}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-exclamation fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-bottom-danger shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                  Deadline
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ task.deadline }}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-bottom-dark shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                  Type
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ task.task_type }}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-tag fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Workers
+
+        </h6>
+
+      </div>
+      <div class="card-body">
+        <div class="table-responsive text-center">
+          <table class="table table-bordered" id="dataTable">
+            <thead>
+            <tr>
+              <th>Profile</th>
+              <th>Username</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Position</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for worker in task.assignees.all %}
+              <tr>
+                <td>
+                  <a href="{% url "workers:worker-detail" worker.id %}" class="btn btn-info btn-circle btn-sm"
+                     title="Worker details">
+                    <i class="fas fa-user"></i>
+                  </a>
+                </td>
+                <td>
+                  {% if user.username == worker.username %}
+                    {{ worker.username }}(Me)
+                  {% else %}
+                    {{ worker.username }}
+                  {% endif %}
+                </td>
+                <td>{{ worker.first_name }}</td>
+                <td>{{ worker.last_name }}</td>
+                <td>{{ worker.email }}</td>
+                <td>{{ worker.position }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="deleteTask" tabindex="-1" role="dialog" aria-labelledby="DeleteTaskLabel"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete the task?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">The task <strong>{{ task.name }}</strong> will be deleted permanently!</div>
+          <div class="modal-footer">
+            <form method="post" action="{% url "tasks:task-delete" task.id %}">
+              {% csrf_token %}
+              <a class="btn btn-secondary" href="{% url "tasks:task-detail" task.id %}">Cancel</a>
+              <input type="submit" value="Delete" class="btn btn-danger">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+{% endblock %}
